@@ -5,6 +5,7 @@ import Navbar from '@/components/ui/navbar';
 import { Button } from '@/components/ui/button';
 import Modal from '@/components/ui/modal';
 import Typography from '@/components/ui/typography';
+import { Card } from '@/components/ui/Card';
 
 export default function PreviewPage() {
   const [modals, setModals] = useState({
@@ -427,6 +428,207 @@ export default function PreviewPage() {
                       </div>
                     </div>
                   ))}
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section>
+            <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-6">
+              Card Variants
+            </h2>
+
+            <div className="space-y-8">
+              <div>
+                <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">
+                  Color Variants
+                </h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                  <Card variant="primary">
+                    <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">Primary Card</h4>
+                    <p className="text-gray-600 dark:text-gray-300 mb-3">
+                      This is a primary card with blue border styling.
+                    </p>
+                    <Button variant="primary" size="sm">Action</Button>
+                  </Card>
+
+                  <Card variant="secondary">
+                    <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">Secondary Card</h4>
+                    <p className="text-gray-600 dark:text-gray-300 mb-3">
+                      This is a secondary card with gray border styling.
+                    </p>
+                    <Button variant="secondary" size="sm">Action</Button>
+                  </Card>
+
+                  <Card variant="success">
+                    <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">Success Card</h4>
+                    <p className="text-gray-600 dark:text-gray-300 mb-3">
+                      This is a success card with green border styling.
+                    </p>
+                    <Button variant="success" size="sm">Action</Button>
+                  </Card>
+
+                  <Card variant="danger">
+                    <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">Danger Card</h4>
+                    <p className="text-gray-600 dark:text-gray-300 mb-3">
+                      This is a danger card with red border styling.
+                    </p>
+                    <Button variant="danger" size="sm">Action</Button>
+                  </Card>
+
+                  <Card variant="warning">
+                    <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">Warning Card</h4>
+                    <p className="text-gray-600 dark:text-gray-300 mb-3">
+                      This is a warning card with amber border styling.
+                    </p>
+                    <Button variant="warning" size="sm">Action</Button>
+                  </Card>
+                </div>
+              </div>
+
+              <div>
+                <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">
+                  Size Variants
+                </h3>
+                <div className="space-y-4">
+                  <Card size="sm" variant="primary">
+                    <h4 className="text-sm font-semibold text-gray-900 dark:text-white mb-1">Small Card</h4>
+                    <p className="text-sm text-gray-600 dark:text-gray-300">
+                      This is a small card with reduced padding (p-4).
+                    </p>
+                  </Card>
+
+                  <Card size="md" variant="secondary">
+                    <h4 className="text-base font-semibold text-gray-900 dark:text-white mb-2">Medium Card (Default)</h4>
+                    <p className="text-base text-gray-600 dark:text-gray-300">
+                      This is a medium card with standard padding (p-6). This is the default size.
+                    </p>
+                  </Card>
+
+                  <Card size="lg" variant="success">
+                    <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">Large Card</h4>
+                    <p className="text-lg text-gray-600 dark:text-gray-300 mb-4">
+                      This is a large card with increased padding (p-8). It provides more breathing room for content.
+                    </p>
+                    <div className="flex gap-2">
+                      <Button variant="success" size="sm">Primary Action</Button>
+                      <Button variant="secondary" size="sm">Secondary</Button>
+                    </div>
+                  </Card>
+                </div>
+              </div>
+
+              <div>
+                <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">
+                  States
+                </h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <Card variant="primary">
+                    <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">Normal State</h4>
+                    <p className="text-gray-600 dark:text-gray-300 mb-3">
+                      This card is in normal state and fully interactive.
+                    </p>
+                    <Button variant="primary" size="sm">Clickable</Button>
+                  </Card>
+
+                  <Card variant="primary" disabled>
+                    <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">Disabled State</h4>
+                    <p className="text-gray-600 dark:text-gray-300 mb-3">
+                      This card is disabled and has reduced opacity.
+                    </p>
+                    <Button variant="primary" size="sm" disabled>Disabled</Button>
+                  </Card>
+                </div>
+              </div>
+
+              <div>
+                <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">
+                  All Combinations
+                </h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {(['primary', 'secondary', 'success', 'danger', 'warning'] as const).map((variant) => (
+                    <div key={variant} className="space-y-3">
+                      <h4 className="text-sm font-medium text-gray-900 dark:text-white capitalize">
+                        {variant} Cards
+                      </h4>
+                      <div className="space-y-2">
+                        <Card variant={variant} size="sm">
+                          <Typography variant={variant} size="sm" weight="medium">Small {variant}</Typography>
+                        </Card>
+                        <Card variant={variant} size="md">
+                          <Typography variant={variant} size="md" weight="medium">Medium {variant}</Typography>
+                        </Card>
+                        <Card variant={variant} size="lg">
+                          <Typography variant={variant} size="lg" weight="medium">Large {variant}</Typography>
+                        </Card>
+                        <Card variant={variant} size="md" disabled>
+                          <Typography variant={variant} size="md" weight="medium" disabled>Disabled</Typography>
+                        </Card>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">
+                  Complex Content Examples
+                </h3>
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                  <Card variant="primary" size="lg">
+                    <div className="flex items-start justify-between mb-4">
+                      <h4 className="text-xl font-bold text-gray-900 dark:text-white">User Profile</h4>
+                      <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+                    </div>
+                    <div className="flex items-center space-x-4 mb-4">
+                      <div className="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center text-white font-semibold">
+                        JS
+                      </div>
+                      <div>
+                        <p className="font-semibold text-gray-900 dark:text-white">John Smith</p>
+                        <p className="text-sm text-gray-600 dark:text-gray-300">john.smith@example.com</p>
+                      </div>
+                    </div>
+                    <div className="space-y-2 mb-4">
+                      <div className="flex justify-between text-sm">
+                        <span className="text-gray-600 dark:text-gray-300">Projects</span>
+                        <span className="font-medium text-gray-900 dark:text-white">12</span>
+                      </div>
+                      <div className="flex justify-between text-sm">
+                        <span className="text-gray-600 dark:text-gray-300">Tasks Completed</span>
+                        <span className="font-medium text-gray-900 dark:text-white">89</span>
+                      </div>
+                    </div>
+                    <div className="flex gap-2">
+                      <Button variant="primary" size="sm">Edit Profile</Button>
+                      <Button variant="secondary" size="sm">View Details</Button>
+                    </div>
+                  </Card>
+
+                  <Card variant="success" size="lg">
+                    <div className="text-center">
+                      <div className="w-16 h-16 bg-green-100 dark:bg-green-800 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg className="w-8 h-8 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                        </svg>
+                      </div>
+                      <h4 className="text-xl font-bold text-gray-900 dark:text-white mb-2">Task Completed!</h4>
+                      <p className="text-gray-600 dark:text-gray-300 mb-6">
+                        Your project has been successfully deployed to production.
+                      </p>
+                      <div className="space-y-2 mb-6">
+                        <div className="flex justify-between text-sm">
+                          <span className="text-gray-600 dark:text-gray-300">Build Time</span>
+                          <span className="font-medium text-gray-900 dark:text-white">2m 34s</span>
+                        </div>
+                        <div className="flex justify-between text-sm">
+                          <span className="text-gray-600 dark:text-gray-300">Deploy Status</span>
+                          <span className="font-medium text-green-600 dark:text-green-400">Live</span>
+                        </div>
+                      </div>
+                      <Button variant="success" size="sm">View Deployment</Button>
+                    </div>
+                  </Card>
                 </div>
               </div>
             </div>
