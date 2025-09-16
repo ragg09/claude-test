@@ -53,7 +53,7 @@ export default function Navbar({
         <div className="flex justify-between items-center h-16">
           <div className="flex items-center space-x-8">
             <Link
-              href="#"
+              href="/"
               className="text-xl font-bold text-gray-900 dark:text-white hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
             >
               Claude Test
