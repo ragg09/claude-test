@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Navbar from '@/components/ui/navbar';
 import { Button } from '@/components/ui/button';
 import Modal from '@/components/ui/modal';
+import Typography from '@/components/ui/typography';
 
 export default function PreviewPage() {
   const [modals, setModals] = useState({
@@ -341,6 +342,94 @@ export default function PreviewPage() {
                 <Button variant="primary" onClick={() => closeModal('simple')}>Close</Button>
               </div>
             </Modal>
+          </section>
+
+          <section>
+            <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-6">
+              Typography Variants
+            </h2>
+
+            <div className="space-y-8">
+              <div>
+                <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">
+                  Color Variants
+                </h3>
+                <div className="space-y-4 p-6 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                  <Typography variant="primary" size="lg" element="h3">Primary Typography</Typography>
+                  <Typography variant="secondary" size="lg" element="h3">Secondary Typography</Typography>
+                  <Typography variant="success" size="lg" element="h3">Success Typography</Typography>
+                  <Typography variant="danger" size="lg" element="h3">Danger Typography</Typography>
+                  <Typography variant="warning" size="lg" element="h3">Warning Typography</Typography>
+                </div>
+              </div>
+
+              <div>
+                <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">
+                  Size Variants
+                </h3>
+                <div className="space-y-4 p-6 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                  <Typography size="sm">Small typography - Lorem ipsum dolor sit amet, consectetur adipiscing elit.</Typography>
+                  <Typography size="md">Medium typography - Lorem ipsum dolor sit amet, consectetur adipiscing elit.</Typography>
+                  <Typography size="lg">Large typography - Lorem ipsum dolor sit amet, consectetur adipiscing elit.</Typography>
+                </div>
+              </div>
+
+              <div>
+                <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">
+                  Weight Variants
+                </h3>
+                <div className="space-y-4 p-6 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                  <Typography weight="normal">Normal weight typography</Typography>
+                  <Typography weight="medium">Medium weight typography</Typography>
+                  <Typography weight="semibold">Semibold weight typography</Typography>
+                  <Typography weight="bold">Bold weight typography</Typography>
+                </div>
+              </div>
+
+              <div>
+                <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">
+                  Element Types
+                </h3>
+                <div className="space-y-4 p-6 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                  <Typography element="h1" size="lg" weight="bold">H1 Heading Element</Typography>
+                  <Typography element="h2" size="lg" weight="semibold">H2 Heading Element</Typography>
+                  <Typography element="h3" size="md" weight="medium">H3 Heading Element</Typography>
+                  <Typography element="p">Paragraph element with regular text content</Typography>
+                  <Typography element="span" variant="secondary">Span element for inline text</Typography>
+                </div>
+              </div>
+
+              <div>
+                <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">
+                  States
+                </h3>
+                <div className="space-y-4 p-6 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                  <Typography variant="primary">Normal state typography</Typography>
+                  <Typography variant="primary" disabled>Disabled state typography</Typography>
+                </div>
+              </div>
+
+              <div>
+                <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">
+                  All Combinations
+                </h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {(['primary', 'secondary', 'success', 'danger', 'warning'] as const).map((variant) => (
+                    <div key={variant} className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                      <h4 className="text-sm font-medium text-gray-900 dark:text-white mb-3 capitalize">
+                        {variant}
+                      </h4>
+                      <div className="space-y-2">
+                        <Typography variant={variant} size="sm" weight="normal">Small Normal</Typography>
+                        <Typography variant={variant} size="md" weight="medium">Medium Medium</Typography>
+                        <Typography variant={variant} size="lg" weight="bold">Large Bold</Typography>
+                        <Typography variant={variant} size="md" disabled>Disabled</Typography>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
           </section>
 
           <section>
