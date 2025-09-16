@@ -31,6 +31,7 @@ export default function Navbar({ variant = 'default', className = '' }: NavbarPr
 
   const navLinks = [
     { href: '/', label: 'Home' },
+    { href: '/about', label: 'About' },
     { href: '/preview', label: 'Preview' },
   ];
 

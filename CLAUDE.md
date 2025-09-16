@@ -74,3 +74,4 @@ src/
 ├── constants/            # Application constants
 └── styles/               # Global styles and themes
 ```
+- when making new page component, always add a link to that page in the header navbar

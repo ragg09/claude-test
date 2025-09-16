@@ -1,6 +1,31 @@
+'use client';
+
+import { useState } from 'react';
 import Navbar from '@/components/ui/navbar';
+import { Button } from '@/components/ui/button';
+import Modal from '@/components/ui/modal';
 
 export default function PreviewPage() {
+  const [modals, setModals] = useState({
+    primary: false,
+    secondary: false,
+    success: false,
+    danger: false,
+    warning: false,
+    small: false,
+    medium: false,
+    large: false,
+    disabled: false,
+    simple: false,
+  });
+
+  const openModal = (key: keyof typeof modals) => {
+    setModals(prev => ({ ...prev, [key]: true }));
+  };
+
+  const closeModal = (key: keyof typeof modals) => {
+    setModals(prev => ({ ...prev, [key]: false }));
+  };
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900">
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -47,6 +72,275 @@ export default function PreviewPage() {
                 </div>
               </div>
             </div>
+          </section>
+
+          <section>
+            <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-6">
+              Button Variants
+            </h2>
+
+            <div className="space-y-8">
+              <div>
+                <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">
+                  Color Variants
+                </h3>
+                <div className="flex flex-wrap gap-4 p-6 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                  <Button variant="primary">Primary</Button>
+                  <Button variant="secondary">Secondary</Button>
+                  <Button variant="success">Success</Button>
+                  <Button variant="danger">Danger</Button>
+                  <Button variant="warning">Warning</Button>
+                </div>
+              </div>
+
+              <div>
+                <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">
+                  Size Variants
+                </h3>
+                <div className="flex items-end gap-4 p-6 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                  <Button size="sm">Small</Button>
+                  <Button size="md">Medium</Button>
+                  <Button size="lg">Large</Button>
+                </div>
+              </div>
+
+              <div>
+                <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">
+                  States
+                </h3>
+                <div className="flex flex-wrap gap-4 p-6 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                  <Button variant="primary">Normal</Button>
+                  <Button variant="primary" disabled>Disabled</Button>
+                </div>
+              </div>
+
+              <div>
+                <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">
+                  All Combinations
+                </h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {(['primary', 'secondary', 'success', 'danger', 'warning'] as const).map((variant) => (
+                    <div key={variant} className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                      <h4 className="text-sm font-medium text-gray-900 dark:text-white mb-3 capitalize">
+                        {variant}
+                      </h4>
+                      <div className="space-y-2">
+                        <div className="flex gap-2">
+                          <Button variant={variant} size="sm">Small</Button>
+                          <Button variant={variant} size="md">Medium</Button>
+                          <Button variant={variant} size="lg">Large</Button>
+                        </div>
+                        <div className="flex gap-2">
+                          <Button variant={variant} size="sm" disabled>Small</Button>
+                          <Button variant={variant} size="md" disabled>Medium</Button>
+                          <Button variant={variant} size="lg" disabled>Large</Button>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section>
+            <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-6">
+              Modal Variants
+            </h2>
+
+            <div className="space-y-8">
+              <div>
+                <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">
+                  Color Variants
+                </h3>
+                <div className="flex flex-wrap gap-4 p-6 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                  <Button variant="primary" onClick={() => openModal('primary')}>Open Primary Modal</Button>
+                  <Button variant="secondary" onClick={() => openModal('secondary')}>Open Secondary Modal</Button>
+                  <Button variant="success" onClick={() => openModal('success')}>Open Success Modal</Button>
+                  <Button variant="danger" onClick={() => openModal('danger')}>Open Danger Modal</Button>
+                  <Button variant="warning" onClick={() => openModal('warning')}>Open Warning Modal</Button>
+                </div>
+              </div>
+
+              <div>
+                <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">
+                  Size Variants
+                </h3>
+                <div className="flex items-center gap-4 p-6 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                  <Button size="sm" onClick={() => openModal('small')}>Small Modal</Button>
+                  <Button size="md" onClick={() => openModal('medium')}>Medium Modal</Button>
+                  <Button size="lg" onClick={() => openModal('large')}>Large Modal</Button>
+                </div>
+              </div>
+
+              <div>
+                <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">
+                  States and Options
+                </h3>
+                <div className="flex flex-wrap gap-4 p-6 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                  <Button variant="primary" onClick={() => openModal('disabled')}>Disabled Modal</Button>
+                  <Button variant="secondary" onClick={() => openModal('simple')}>Simple Modal (No Title)</Button>
+                </div>
+              </div>
+            </div>
+
+            {/* Modal Components */}
+            <Modal
+              isOpen={modals.primary}
+              onClose={() => closeModal('primary')}
+              title="Primary Modal"
+              variant="primary"
+            >
+              <div className="space-y-4">
+                <p className="text-gray-600 dark:text-gray-300">
+                  This is a primary modal with a blue header and border. It demonstrates the primary variant styling.
+                </p>
+                <div className="flex gap-2">
+                  <Button variant="primary" onClick={() => closeModal('primary')}>Confirm</Button>
+                  <Button variant="secondary" onClick={() => closeModal('primary')}>Cancel</Button>
+                </div>
+              </div>
+            </Modal>
+
+            <Modal
+              isOpen={modals.secondary}
+              onClose={() => closeModal('secondary')}
+              title="Secondary Modal"
+              variant="secondary"
+            >
+              <div className="space-y-4">
+                <p className="text-gray-600 dark:text-gray-300">
+                  This is a secondary modal with a gray header and border.
+                </p>
+                <Button variant="secondary" onClick={() => closeModal('secondary')}>Close</Button>
+              </div>
+            </Modal>
+
+            <Modal
+              isOpen={modals.success}
+              onClose={() => closeModal('success')}
+              title="Success Modal"
+              variant="success"
+            >
+              <div className="space-y-4">
+                <p className="text-gray-600 dark:text-gray-300">
+                  This is a success modal with a green header and border, typically used for positive feedback.
+                </p>
+                <Button variant="success" onClick={() => closeModal('success')}>Great!</Button>
+              </div>
+            </Modal>
+
+            <Modal
+              isOpen={modals.danger}
+              onClose={() => closeModal('danger')}
+              title="Danger Modal"
+              variant="danger"
+            >
+              <div className="space-y-4">
+                <p className="text-gray-600 dark:text-gray-300">
+                  This is a danger modal with a red header and border, typically used for destructive actions or errors.
+                </p>
+                <div className="flex gap-2">
+                  <Button variant="danger" onClick={() => closeModal('danger')}>Delete</Button>
+                  <Button variant="secondary" onClick={() => closeModal('danger')}>Cancel</Button>
+                </div>
+              </div>
+            </Modal>
+
+            <Modal
+              isOpen={modals.warning}
+              onClose={() => closeModal('warning')}
+              title="Warning Modal"
+              variant="warning"
+            >
+              <div className="space-y-4">
+                <p className="text-gray-600 dark:text-gray-300">
+                  This is a warning modal with an orange header and border, typically used for cautionary messages.
+                </p>
+                <div className="flex gap-2">
+                  <Button variant="warning" onClick={() => closeModal('warning')}>Proceed</Button>
+                  <Button variant="secondary" onClick={() => closeModal('warning')}>Cancel</Button>
+                </div>
+              </div>
+            </Modal>
+
+            <Modal
+              isOpen={modals.small}
+              onClose={() => closeModal('small')}
+              title="Small Modal"
+              size="sm"
+            >
+              <p className="text-gray-600 dark:text-gray-300">
+                This is a small modal (max-width: 28rem).
+              </p>
+            </Modal>
+
+            <Modal
+              isOpen={modals.medium}
+              onClose={() => closeModal('medium')}
+              title="Medium Modal"
+              size="md"
+            >
+              <p className="text-gray-600 dark:text-gray-300">
+                This is a medium modal (max-width: 32rem). This is the default size.
+              </p>
+            </Modal>
+
+            <Modal
+              isOpen={modals.large}
+              onClose={() => closeModal('large')}
+              title="Large Modal"
+              size="lg"
+            >
+              <div className="space-y-4">
+                <p className="text-gray-600 dark:text-gray-300">
+                  This is a large modal (max-width: 42rem). It provides more space for content.
+                </p>
+                <p className="text-gray-600 dark:text-gray-300">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                </p>
+              </div>
+            </Modal>
+
+            <Modal
+              isOpen={modals.disabled}
+              onClose={() => closeModal('disabled')}
+              title="Disabled Modal"
+              disabled={true}
+            >
+              <div className="space-y-4">
+                <p className="text-gray-600 dark:text-gray-300">
+                  This modal is disabled. You cannot close it by clicking the overlay, pressing Escape, or clicking the close button.
+                </p>
+                <p className="text-sm text-gray-500 dark:text-gray-400">
+                  Note: In a real application, you would provide an alternative way to close a disabled modal.
+                </p>
+                <Button
+                  variant="primary"
+                  onClick={() => closeModal('disabled')}
+                  className="opacity-50 cursor-not-allowed"
+                  disabled
+                >
+                  This button is also disabled
+                </Button>
+              </div>
+            </Modal>
+
+            <Modal
+              isOpen={modals.simple}
+              onClose={() => closeModal('simple')}
+              showCloseButton={true}
+            >
+              <div className="space-y-4">
+                <h3 className="text-lg font-medium text-gray-900 dark:text-white">
+                  Simple Modal without Title Bar
+                </h3>
+                <p className="text-gray-600 dark:text-gray-300">
+                  This modal doesn't have a colored header bar, just the close button in the top-right corner.
+                </p>
+                <Button variant="primary" onClick={() => closeModal('simple')}>Close</Button>
+              </div>
+            </Modal>
           </section>
 
           <section>
