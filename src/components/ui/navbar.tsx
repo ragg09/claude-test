@@ -15,26 +15,41 @@ export default function Navbar({
 }: NavbarProps) {
   const pathname = usePathname();
   const [theme, setTheme] = useState<"light" | "dark">("light");
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
+
     let savedTheme: "light" | "dark" | null = null;
 
     try {
       savedTheme = localStorage.getItem("theme") as "light" | "dark" | null;
     } catch (error) {
       console.warn("Failed to access localStorage:", error);
+      savedTheme = null;
     }
 
-    const prefersDark = window.matchMedia(
-      "(prefers-color-scheme: dark)"
-    ).matches;
+    let prefersDark = false;
+    try {
+      prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    } catch (error) {
+      console.warn("Failed to access matchMedia:", error);
+    }
+
     const initialTheme = savedTheme || (prefersDark ? "dark" : "light");
 
     setTheme(initialTheme);
-    document.documentElement.classList.toggle("dark", initialTheme === "dark");
+
+    try {
+      document.documentElement.classList.toggle("dark", initialTheme === "dark");
+    } catch (error) {
+      console.warn("Failed to update document class:", error);
+    }
   }, []);
 
   const toggleTheme = () => {
+    if (!mounted) return;
+
     const newTheme = theme === "light" ? "dark" : "light";
     setTheme(newTheme);
 
@@ -44,7 +59,11 @@ export default function Navbar({
       console.warn("Failed to save theme to localStorage:", error);
     }
 
-    document.documentElement.classList.toggle("dark", newTheme === "dark");
+    try {
+      document.documentElement.classList.toggle("dark", newTheme === "dark");
+    } catch (error) {
+      console.warn("Failed to update document class:", error);
+    }
   };
 
   const navLinks = [
@@ -90,12 +109,13 @@ export default function Navbar({
           </div>
 
           <div className="flex items-center space-x-4">
-            <button
-              onClick={toggleTheme}
-              className="p-2 rounded-md text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-              aria-label="Toggle theme"
-            >
-              {theme === "light" ? (
+            {mounted && (
+              <button
+                onClick={toggleTheme}
+                className="p-2 rounded-md text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                aria-label="Toggle theme"
+              >
+                {theme === "light" ? (
                 <svg
                   className="w-5 h-5"
                   fill="none"
@@ -124,7 +144,8 @@ export default function Navbar({
                   />
                 </svg>
               )}
-            </button>
+              </button>
+            )}
 
             <div className="md:hidden">
               <button
