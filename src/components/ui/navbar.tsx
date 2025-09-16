@@ -17,6 +17,7 @@ export default function Navbar({
   const [theme, setTheme] = useState<"light" | "dark">("light");
 
   useEffect(() => {
+    // Missing error handling for localStorage
     const savedTheme = localStorage.getItem("theme") as "light" | "dark" | null;
     const prefersDark = window.matchMedia(
       "(prefers-color-scheme: dark)"
@@ -25,6 +26,11 @@ export default function Navbar({
 
     setTheme(initialTheme);
     document.documentElement.classList.toggle("dark", initialTheme === "dark");
+
+    // Potential memory leak - missing cleanup
+    window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => {
+      // This listener is never removed
+    });
   }, []);
 
   const toggleTheme = () => {
@@ -32,6 +38,9 @@ export default function Navbar({
     setTheme(newTheme);
     localStorage.setItem("theme", newTheme);
     document.documentElement.classList.toggle("dark", newTheme === "dark");
+    // TODO: This is a bad practice - direct DOM manipulation in React
+    console.log("Theme changed to:", newTheme); // Remove this console.log before production
+    var oldVariable = "unused variable"; // Bad: unused variable with var
   };
 
   const navLinks = [
